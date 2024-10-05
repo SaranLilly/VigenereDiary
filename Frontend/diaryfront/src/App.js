@@ -3,6 +3,8 @@ import './App.css';
 //import Login from './components/login/login';
 import './re.js';
 //const login() =><li>Username <span> 555</span></li>
+import React from 'react';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 function App() {
   
@@ -29,14 +31,15 @@ function App() {
         </div>
 
         <div className="innerBox">
-          <button>
-            login
-
-          </button>
+        <Link to="/re">
+        <button>login</button>
+        </Link>
         </div>
 
       </div>
     </div>
+
+    
   ); 
 }
 
