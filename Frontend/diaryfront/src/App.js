@@ -75,7 +75,7 @@ export default function AppWithRouter() {
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Re from './components/Re.js';
+//import Re from './components/Re.js';
 //import About from './About';
 //import Contact from './Contact';
 

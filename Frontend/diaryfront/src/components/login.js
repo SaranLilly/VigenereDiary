@@ -48,7 +48,7 @@ import React from 'react';
 import "./login.css";
 // import React from 'react';
 import { BrowserRouter as Link } from 'react-router-dom';
-
+import Re from './Re.js';
 
 const Login = () => {
   return <div className="login-container">
@@ -72,7 +72,7 @@ const Login = () => {
     </div>
 
     <div className="innerBox">
-    <Link to="/re">
+    <Link to="/Re">
     <button>login</button>
     </Link>
     </div>
