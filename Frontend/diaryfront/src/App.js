@@ -73,32 +73,75 @@ export default function AppWithRouter() {
 
 // export default App;
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Re from './components/Re.js';
-//import About from './About';
-//import Contact from './Contact';
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+// import Re from './components/Re.js';
+// //import About from './About';
+// //import Contact from './Contact';
 
-const App = () => {
-  return (
+// const App = () => {
+//   return (
 
     
-    <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Re</Link>
-          </li>
+//     <Router>
+//       <nav>
+//         <ul>
+//           <li>
+//             <Link to="/">Re</Link>
+//           </li>
           
-        </ul>
-      </nav>
+//         </ul>
+//       </nav>
 
-      <Routes>
-        <Route path="/" element={<Re />} />
+//       <Routes>
+//         <Route path="/" element={<Re />} />
         
-      </Routes>
-    </Router>
-  );
-};
+//       </Routes>
+//     </Router>
+//   );
+// };
 
-export default App;
+// export default App;
+
+import "./components/login.css";
+import React from 'react';
+import { BrowserRouter as Link } from 'react-router-dom';
+
+function App() {
+    //const navigate = useNavigate();
+  return (
+    <div className="login-container">
+
+      <div className="login-form">
+        <h2>Vigenere Diary</h2>
+
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="username"
+          />
+        </div>
+
+        <div className="input-group2">
+          <input
+            type="text"
+            placeholder="password"
+          />
+
+        </div>
+
+        <div className="innerBox">
+        <Link to="/re">
+        <button>login</button>
+        </Link>
+        </div>
+
+        
+      </div>
+    </div>
+
+    
+  );
+  }
+  
+  export default App;
