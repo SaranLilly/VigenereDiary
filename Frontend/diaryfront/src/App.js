@@ -75,7 +75,7 @@ export default function AppWithRouter() {
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Re from './components/Re.js';
+import login from './components/login.js';
 //import About from './About';
 //import Contact from './Contact';
 
@@ -85,14 +85,14 @@ const App = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/">Re</Link>
+            <Link to="/">login</Link>
           </li>
           
         </ul>
       </nav>
 
       <Routes>
-        <Route path="/" element={<Re />} />
+        <Route path="/" element={<login />} />
         
       </Routes>
     </Router>
