@@ -1,5 +1,7 @@
 import React from 'react';
 import New from './New'; // ให้แน่ใจว่าชื่อไฟล์ตรง
+import { Link } from 'react-router-dom';
+import "./re.css";
 
 function Re() {
   return <div className="login-container">
