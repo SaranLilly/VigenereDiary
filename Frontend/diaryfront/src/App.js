@@ -1,46 +1,40 @@
-//import logo from './logo.svg';
-import './App.css';
-//import Login from './components/login/login';
-import './re.js';
-//const login() =><li>Username <span> 555</span></li>
-import React from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+//import Navbar from './components/navbar/navbar';
+import Login from './components/login.js';
+//import Register from './components/register/register';
+//import FeedPage from './components/feed/FeedPage.js';
+//import ProfilePage from './components/profile/ProfilePage.js';
+//import ProfileFriendPage from './components/profile/ProfileFriendPage.js';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  
-  //const design ={color:"#c16c2b"}
-  return (
-    <div className="login-container">
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token'); // Get token from localStorage
 
-      <div className="login-form">
-        <h2>Vigenere Diary</h2>
-
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="username"
-          />
-        </div>
-
-        <div className="input-group2">
-          <input
-            type="text"
-            placeholder="password"
-          />
-
-        </div>
-
-        <div className="innerBox">
-        <Link to="/re">
-        <button>login</button>
-        </Link>
-        </div>
-
-      </div>
-    </div>
-
+  // Redirect to login if there's no token
+  useEffect(() => {
     
-  ); 
+  }, [token, location.pathname, navigate]);
+
+  return (
+    <div className="App">
+      {/* Show Navbar on all pages except Login and Register */}
+      
+      
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App;
+export default function AppWithRouter() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
+
