@@ -10,6 +10,11 @@
 </head>
 <body>
     <div class="container">
+        <div class="user-info">
+            <span id="loggedInUserName"></span>
+            <!-- <a href="#" onclick="logout()">Logout</a> คุณสามารถทำลิงก์ Logout ได้ -->
+        </div>
+        
         <!-- Menu for Mobile -->
         <div class="menu-icon">
             <i class="fas fa-bars" onclick="toggleMenu()"></i>
@@ -114,6 +119,13 @@ function fetchFoldersForSelect() {
 
 // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
 document.addEventListener('DOMContentLoaded', function() {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+        const user = JSON.parse(loggedInUser);
+        document.getElementById('loggedInUserName').textContent = `Welcome, ${user.username}`;
+    } else {
+        document.getElementById('loggedInUserName').textContent = 'Not logged in';
+    }
     fetchFoldersForSelect(); // ดึงข้อมูลโฟลเดอร์เมื่อโหลดหน้า
 });
 
