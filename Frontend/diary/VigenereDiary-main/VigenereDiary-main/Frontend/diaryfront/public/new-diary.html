@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Diary Entry - Vigenère Diary</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Menu for Mobile -->
+        <div class="menu-icon">
+            <i class="fas fa-bars" onclick="toggleMenu()"></i>
+        </div>
+
+        <!-- Back Button for Mobile -->
+        <div class="back-icon">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="#" onclick="showForm('new-diary')">New Diary</a></li>
+                <li><a href="#" onclick="showForm('view-entries')">View All Entries</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <!-- ฟอร์มบันทึกไดอารี่ (ซ่อนเป็นค่าเริ่มต้น) -->
+            <div class="diary-box" id="new-diary-form" style="display: none;">
+                <h1>New Diary Entry</h1>
+                <form onsubmit="saveDiary(); return false;">
+                    <label for="topic">Topic</label>
+                    <input type="text" id="topic" name="topic" required>
+                    <label for="content">Diary Content</label>
+                    <textarea id="content" name="content" required></textarea>
+                    <label for="secret-key">Secret Key</label>
+                    <input type="text" id="secret-key" name="secret-key" required>
+                    <label for="algorithm">Encryption Algorithm</label>
+                    <select id="algorithm">
+                        <option value="vigenere">Vigenère</option>
+                    </select>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+
+            <!-- หน้ารายการทั้งหมด (ซ่อนเป็นค่าเริ่มต้น) -->
+            <div class="diary-box" id="view-entries-form" style="display: none;">
+                <h1>All Diary Entries</h1>
+                <p>รายการไดอารี่ทั้งหมดจะแสดงที่นี่...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันแสดงฟอร์ม
+        function showForm(formId) {
+            // ซ่อนฟอร์มทั้งหมด
+            document.getElementById('new-diary-form').style.display = 'none';
+            document.getElementById('view-entries-form').style.display = 'none';
+
+            // แสดงฟอร์มที่เลือก
+            if (formId === 'new-diary') {
+                document.getElementById('new-diary-form').style.display = 'block';
+            } else if (formId === 'view-entries') {
+                document.getElementById('view-entries-form').style.display = 'block';
+            }
+        }
+
+        // ฟังก์ชันบันทึกไดอารี่ (คุณสามารถปรับแต่งตามความต้องการ)
+        function saveDiary() {
+            alert("บันทึกไดอารี่เรียบร้อยแล้ว");
+        }
+    </script>
+</body>
+</html>

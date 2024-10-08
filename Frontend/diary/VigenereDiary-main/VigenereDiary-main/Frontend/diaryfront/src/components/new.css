@@ -1,0 +1,57 @@
+.login-container {
+    height: 100vh;
+    background-color: #e7bfa0;
+  }
+  
+  .login-cont {
+    background-color: #e7bfa0;
+    top: 0; /* ให้เริ่มจากด้านบน */
+    left: 0; /* ให้เริ่มจากด้านซ้าย */
+    margin: 0px; /* เว้นระยะห่างจากขอบ */
+  }
+  
+  .text {
+    padding: 20px; /* เพิ่มพื้นที่ภายใน */
+    border-radius: 8px; /* มุมมน */
+    font-size: 24px; /* ขนาดตัวอักษร */
+    color: #ffffff; /* สีข้อความ */
+  }
+  
+  
+  .background-container {
+    width: 8%; /* กำหนดความกว้างเป็น 100% ของหน้าจอ */
+    height: 1000px; /* กำหนดความสูงเป็น 300px */
+    background-color: #d48548; /* กำหนดสีพื้นหลัง */
+    display: flex; /* ใช้ flexbox เพื่อจัดตำแหน่ง */
+    
+    
+  }
+  .background-cont {
+    width: 100%; /* กำหนดความกว้างเป็น 100% ของหน้าจอ */
+    height: 100px; /* กำหนดความสูงเป็น 300px */
+    background-color: #d48548; /* กำหนดสีพื้นหลัง */
+    display: flex; /* ใช้ flexbox เพื่อจัดตำแหน่ง */
+  }
+  
+  .text1 {
+    padding: 20px; /* เพิ่มพื้นที่ภายใน */
+    border-radius: 8px; /* มุมมน */
+    font-size: 24px; /* ขนาดตัวอักษร */
+    color: #ffffff; /* สีข้อความ */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .innerBox {
+  
+    padding: 30px;
+    
+  } 
+  
+  .input-group {
+    margin-bottom: 15px;
+    color: #e7bfa0;
+    align-items: center;
+    top: 20; /* ให้เริ่มจากด้านบน */
+    left: 20; /* ให้เริ่มจากด้านซ้าย */
+  }
