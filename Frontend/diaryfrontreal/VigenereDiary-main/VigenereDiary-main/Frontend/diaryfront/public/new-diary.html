@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Diary Entry - Vigenère Diary</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Menu for Mobile -->
+        <div class="menu-icon">
+            <i class="fas fa-bars" onclick="toggleMenu()"></i>
+        </div>
+
+        <!-- Back Button for Mobile -->
+        <div class="back-icon">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="new-folder.html" onclick="showForm('new-folder')">New Folder</a></li>
+                <li><a href="#" onclick="showForm('new-diary')">New Diary</a></li>
+                <li><a href="alldiary.html" onclick="showForm('view-entries')">View All Entries</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <!-- ฟอร์มบันทึกไดอารี่ (ซ่อนเป็นค่าเริ่มต้น) -->
+            <div class="diary-box" id="new-diary-form" style="display: none;">
+                <h1>New Diary Entry</h1>
+                <form onsubmit="saveDiary(); return false;">
+                    <label for="topic">Topic</label>
+                    <input type="text" id="topic" name="topic" required>
+                    <label for="content">Diary Content</label>
+                    <textarea id="content" name="content" required></textarea>
+                    <label for="key">Secret Key</label>
+                    <input type="text" id="key" name="key" required>
+
+                    <label for="hint">Hint</label>
+                    <input type="text" id="hint" name="hint" required>
+
+                    <!-- <label for="folderName">folderName</label>
+                    <select id="folderName">
+                        <option value="folderName">folderName</option>
+                    </select>  -->
+
+                    <label for="folderName">Folder Name</label>
+                        <select id="folderName" required>
+                            <option value="" disabled selected>Select a folder</option>
+                            <!-- Options will be populated here -->
+                        </select>
+
+
+                  
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+
+            <!-- หน้ารายการทั้งหมด (ซ่อนเป็นค่าเริ่มต้น) -->
+            <div class="diary-box" id="view-entries-form" style="display: none;">
+                <h1>All Diary Entries</h1>
+                <p>รายการไดอารี่ทั้งหมดจะแสดงที่นี่...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันแสดงฟอร์ม
+        function showForm(formId) {
+            // ซ่อนฟอร์มทั้งหมด
+            document.getElementById('new-diary-form').style.display = 'none';
+            document.getElementById('view-entries-form').style.display = 'none';
+
+            // แสดงฟอร์มที่เลือก
+            if (formId === 'new-diary') {
+                document.getElementById('new-diary-form').style.display = 'block';
+            } else if (formId === 'view-entries') {
+                document.getElementById('view-entries-form').style.display = 'block';
+            }
+        }
+        // ฟังก์ชันสำหรับดึงข้อมูลโฟลเดอร์
+function fetchFoldersForSelect() {
+    fetch('http://127.0.0.1:8000/vigenere-diary/folders/')
+        .then(response => response.json())
+        .then(data => {
+            const folderSelect = document.getElementById('folderName');
+            folderSelect.innerHTML = ''; // ล้างตัวเลือกเก่า
+
+            // เพิ่มตัวเลือกที่ดึงมาจากฐานข้อมูล
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.textContent = "Select a folder";
+            folderSelect.appendChild(defaultOption);
+
+            data.forEach(folder => {
+                const option = document.createElement('option');
+                option.value = folder.folder_id; // ใช้ folder_id หรือชื่อที่ต้องการเก็บเป็น value
+                option.textContent = folder.folder_name; // แสดงชื่อโฟลเดอร์
+                folderSelect.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching folders:', error);
+        });
+}
+
+// เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
+document.addEventListener('DOMContentLoaded', function() {
+    fetchFoldersForSelect(); // ดึงข้อมูลโฟลเดอร์เมื่อโหลดหน้า
+});
+
+
+        // ฟังก์ชันบันทึกไดอารี่ (คุณสามารถปรับแต่งตามความต้องการ)
+        function saveDiary() {
+    const topic = document.getElementById('topic').value;
+    const content = document.getElementById('content').value;
+    const secretKey = document.getElementById('key').value;
+    const hint = document.getElementById('hint').value;
+    const folderId = document.getElementById('folderName').value; // ใช้ folder ID ที่เลือกจาก dropdown
+
+    // ดึงข้อมูลผู้ใช้ที่ล็อกอินจาก localStorage
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (!loggedInUser) {
+        alert('You must be logged in to save a diary entry.');
+        return;
+    }
+
+    const user = JSON.parse(loggedInUser); // สมมติว่าเก็บเป็น JSON { "user_id": 1, "username": "example" }
+
+    // ตรวจสอบว่าเรามีข้อมูลที่จำเป็นทั้งหมด
+    if (!topic || !content || !secretKey || !hint || !folderId) {
+        alert('Please fill in all fields!');
+        return;
+    }
+
+    // ส่งข้อมูลไปยัง API
+    fetch('http://127.0.0.1:8000/vigenere-diary/diaries/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        topic: topic,
+        content: content,
+        key: secretKey, // เปลี่ยนเป็น key ถ้าต้องการ
+        hint: hint,
+        folder: folderId,
+    }),
+})
+
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        alert("บันทึกไดอารี่เรียบร้อยแล้ว");
+        // คุณสามารถเคลียร์ฟอร์มหลังจากบันทึกเสร็จ
+        clearDiaryForm();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error saving diary entry!');
+    });
+}
+
+// ฟังก์ชันสำหรับเคลียร์ฟอร์ม
+function clearDiaryForm() {
+    document.getElementById('topic').value = '';
+    document.getElementById('content').value = '';
+    document.getElementById('key').value = '';
+    document.getElementById('hint').value = '';
+    document.getElementById('folderName').selectedIndex = 0; // รีเซ็ต dropdown
+}
+
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 //import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Login from './components/Login.js'; // ให้แน่ใจว่าชื่อไฟล์ตรง
+import Login from './components/login.js'; // ให้แน่ใจว่าชื่อไฟล์ตรง
 //import Re from './components/Re.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

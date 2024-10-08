@@ -1,5 +1,5 @@
 import React from 'react';
-import New from './New'; // ให้แน่ใจว่าชื่อไฟล์ตรง
+import New from './new'; // ให้แน่ใจว่าชื่อไฟล์ตรง
 import { Link } from 'react-router-dom';
 import "./re.css";
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diary Entry Decryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            margin-top: 10px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Decrypt Diary Entry</h1>
+    <div id="hint"></div> <!-- ที่จะแสดง Hint -->
+    <label for="key">Enter Decryption Key:</label>
+    <input type="text" id="key" placeholder="Enter key here" />
+    <button onclick="fetchDiaryContent()">Submit</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function fetchHint() {
+            const urlParams = new URLSearchParams(window.location.search); // รับ URL parameters
+            const diaryId = urlParams.get('diary_id'); // ดึง diary_id จาก URL
+
+            if (!diaryId) {
+                document.getElementById('hint').innerText = "Diary ID is missing.";
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/vigenere-diary/diaries/${diaryId}/?key=${encodeURIComponent(key)}`, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    document.getElementById('hint').innerText = errorData.error || "An error occurred.";
+                    return;
+                }
+
+                const data = await response.json();
+                document.getElementById('hint').innerHTML = `<strong>Hint:</strong> ${data.hint}`; // แสดง Hint
+            } catch (error) {
+                document.getElementById('hint').innerText = "Error fetching hint: " + error.message;
+            }
+        }
+
+        async function fetchDiaryContent() {
+            const key = document.getElementById('key').value.trim();
+            const urlParams = new URLSearchParams(window.location.search); // รับ URL parameters
+            const diaryId = urlParams.get('diary_id'); // ดึง diary_id จาก URL
+
+            if (!key) {
+                document.getElementById('result').innerText = "Please enter a decryption key.";
+                return;
+            }
+            if (!diaryId) {
+                document.getElementById('result').innerText = "Diary ID is missing.";
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/vigenere-diary/diaries/${diaryId}/?key=${encodeURIComponent(key)}`, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    document.getElementById('result').innerText = errorData.error || "An error occurred.";
+                    return;
+                }
+
+                const data = await response.json();
+                document.getElementById('result').innerHTML = `
+                    <h2>Decrypted Content:</h2>
+                    <p>${data.content}</p>
+                `;
+            } catch (error) {
+                document.getElementById('result').innerText = "Error fetching data: " + error.message;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', fetchHint);
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Diaries - Vigenère Diary</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Menu for Mobile -->
+        <div class="menu-icon">
+            <i class="fas fa-bars" onclick="toggleMenu()"></i>
+        </div>
+
+        <!-- Back Button for Mobile -->
+        <div class="back-icon">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="new-folder.html">New Folder</a></li>
+                <li><a href="new-diary.html">New Diary</a></li>
+                <li><a href="view-diary.html">View All Entries</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="view-diary-box">
+                <h1>View All Diaries</h1>
+                <ul id="diary-list"></ul>
+            </div>
+        </div>
+    </div>
+  
+     
+    <script src="script.js"></script>
+</body>
+</html>

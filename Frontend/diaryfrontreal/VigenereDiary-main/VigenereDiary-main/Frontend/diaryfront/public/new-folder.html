@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Folder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="folder-container">
+    <h2>Create a New Folder</h2>
+    
+    <!-- ปุ่มสำหรับเพิ่มโฟลเดอร์ -->
+    <button id="addFolderBtn">+ Add Folder</button>
+
+    <!-- ฟอร์มสำหรับใส่ชื่อโฟลเดอร์ (ซ่อนโดยค่าเริ่มต้น) -->
+    <div id="folderForm" style="display: none;">
+      <input type="text" id="folderName" placeholder="Enter folder name" required>
+      <button id="saveFolderBtn">Save Folder</button>
+    </div>
+
+    <!-- รายการแสดงโฟลเดอร์ที่ถูกสร้าง -->
+    <div id="folderList">
+      <h3>Your Folders:</h3>
+      <ul id="folders"></ul>
+    </div>
+  </div>
+
+  <!-- โหลดไฟล์ JavaScript -->
+  <script>
+    // แสดงฟอร์มเมื่อคลิกปุ่ม "Add Folder"
+    document.getElementById('addFolderBtn').addEventListener('click', function() {
+      document.getElementById('folderForm').style.display = 'block';
+    });
+
+    // บันทึกโฟลเดอร์ใหม่และส่งข้อมูลไปยัง API
+    document.getElementById('saveFolderBtn').addEventListener('click', function() {
+      const folderName = document.getElementById('folderName').value;
+      
+      // ดึงข้อมูลผู้ใช้ที่ล็อกอินจาก localStorage (เช่น user_id)
+      const loggedInUser = localStorage.getItem('loggedInUser');
+      if (!loggedInUser) {
+        alert('You must be logged in to create a folder.');
+        return;
+      }
+
+      const user = JSON.parse(loggedInUser); // แปลงข้อมูลจาก JSON
+
+      if (folderName) {
+        // สร้างรายการโฟลเดอร์ใหม่ในหน้าจอ
+        const folderList = document.getElementById('folders');
+        const newFolder = document.createElement('li');
+        const folderLink = document.createElement('a');
+        
+        folderLink.textContent = folderName;
+        folderLink.href = "diaryinfolder.html";
+        newFolder.appendChild(folderLink);
+        folderList.appendChild(newFolder);
+
+        // ส่งข้อมูลโฟลเดอร์และผู้ใช้ไปยัง API
+        fetch('http://127.0.0.1:8000/vigenere-diary/folders/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            folder_name: folderName,
+            user: user.user_id  // ส่ง user_id แทน username
+          }),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Success:', data);
+          alert(`Folder "${folderName}" has been created by user: ${user.username}`);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Error creating folder!');
+        });
+
+        // ซ่อนฟอร์มและเคลียร์ input
+        document.getElementById('folderForm').style.display = 'none';
+        document.getElementById('folderName').value = '';
+      } else {
+        alert('Please enter a folder name!');
+      }
+    });
+    
+  </script>
+
+</body>
+</html>

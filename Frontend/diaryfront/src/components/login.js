@@ -49,7 +49,7 @@ import React from 'react';
 import "./login.css";
 // import React from 'react';
 import { BrowserRouter as Link } from 'react-router-dom';
-import Re from './Re.js';
+import Re from './re.js';
 
 const Login = () => {
   return <div className="login-container">

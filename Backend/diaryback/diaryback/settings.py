@@ -37,7 +37,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'folders',
+    'diary',
+    'login',
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
+    
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+AUTH_USER_MODEL = 'users.User'  # แทนที่ 'your_app_name' ด้วยชื่อแอปของคุณ
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # อายุของ access token
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # อายุของ refresh token
+    'ROTATE_REFRESH_TOKENS': False,                 # ไม่ต้องสร้าง refresh token ใหม่ทุกครั้ง
+    'BLACKLIST_AFTER_ROTATION': True,               # เปิดใช้ blacklist หลังจาก refresh token หมดอายุ
+}
+# JWT Settings
+from rest_framework_simplejwt.settings import api_settings
+api_settings.USER_ID_FIELD = 'user_id'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,16 +96,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'diaryback.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'VigenereDiary_Database',
+        'USER': 'adminSecure',
+        'PASSWORD': 'pass1234',
+        'HOST': '127.0.0.1',  # 127.0.0.1 or localhost
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
