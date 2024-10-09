@@ -95,7 +95,7 @@ body {
     margin: 50px auto; /* ลด margin ด้านบน */
     position: absolute;
     top: 80px; /* เลื่อนขึ้นด้านบน */
-    left: 500px; /* ขยับไปทางซ้าย */
+    left: 700px; /* ขยับไปทางซ้าย */
 }
 
 .diary-box {
