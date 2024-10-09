@@ -113,6 +113,7 @@
 // ฟังก์ชันสำหรับดึงข้อมูลโฟลเดอร์
 function fetchFoldersForSelect() {
     const loggedInUser = localStorage.getItem('loggedInUser');
+   
     if (!loggedInUser) {
         alert('You must be logged in to fetch folders.');
         return;
@@ -120,9 +121,14 @@ function fetchFoldersForSelect() {
 
     const user = JSON.parse(loggedInUser);
     const userId = user.user_id; // ดึง user_id
+    const accessToken = user.accessToken; 
     const url = `http://127.0.0.1:8000/vigenere-diary/folders/?user_id=${userId}`; // สร้าง URL พร้อม user_id
 
-    fetch(url)
+    fetch(url,{
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const folderSelect = document.getElementById('folderName');
@@ -178,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const user = JSON.parse(loggedInUser); // สมมติว่าเก็บเป็น JSON { "user_id": 1, "username": "example" }
-
+    const accessToken = user.accessToken; 
     // ตรวจสอบว่าเรามีข้อมูลที่จำเป็นทั้งหมด
     if (!topic || !content || !secretKey || !hint || !folderId) {
         alert('Please fill in all fields!');
@@ -190,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
+         'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({
         topic: topic,

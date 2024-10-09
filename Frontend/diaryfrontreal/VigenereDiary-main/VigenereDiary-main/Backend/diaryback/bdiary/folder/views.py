@@ -1,12 +1,15 @@
 
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Folder
 from .serializers import FolderSerializer
 from django.contrib.auth import get_user_model
 from django.http import Http404
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+from rest_framework.authtoken.models import Token
 
 
 
@@ -15,7 +18,10 @@ User = get_user_model()  # นำโมเดลผู้ใช้มาใช�
 
 class FolderListCreateView(generics.ListCreateAPIView):
     serializer_class = FolderSerializer
-    permission_classes = [AllowAny]  # ปรับแต่ง permission ตามความเหมาะสม
+    # permission_classes = [AllowAny]  # ปรับแต่ง permission ตามความเหมาะสม
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+   
 
     # def get_queryset(self):
     #     user_id = self.kwargs.get('user_id')  # รับ user_id จาก URL
@@ -56,6 +62,7 @@ class FolderListCreateView(generics.ListCreateAPIView):
         folder_name = request.data.get('folder_name')
         user_id = request.data.get('user')  # เปลี่ยนเป็น user_id
         print(f"user id: {user_id}")
+        print(f"request id: {request}")
         # ตรวจสอบว่า user_id ถูกส่งมาหรือไม่
         if not user_id:
             return Response({"error": "User ID is required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -85,7 +92,9 @@ class FolderListCreateView(generics.ListCreateAPIView):
 
 class FolderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = FolderSerializer
-    permission_classes = [AllowAny]  # สามารถปรับให้เหมาะสมตามความต้องการ
+    # permission_classes = [AllowAny]  # สามารถปรับให้เหมาะสมตามความต้องการ
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     # def get_queryset(self):
     #     return Folder.objects.all()  # คืนค่าทุกโฟลเดอร์

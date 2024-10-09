@@ -89,7 +89,7 @@
             const key = document.getElementById('key').value.trim();
             const urlParams = new URLSearchParams(window.location.search); // รับ URL parameters
             const diaryId = urlParams.get('diary_id'); // ดึง diary_id จาก URL
-
+                
             if (!key) {
                 document.getElementById('result').innerText = "Please enter a decryption key.";
                 return;

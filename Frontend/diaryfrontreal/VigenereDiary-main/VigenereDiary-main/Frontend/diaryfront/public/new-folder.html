@@ -84,6 +84,7 @@
       }
 
       const user = JSON.parse(loggedInUser); // แปลงข้อมูลจาก JSON
+      const accessToken = user.accessToken;
 
       if (folderName) {
         // สร้างรายการโฟลเดอร์ใหม่ในหน้าจอ
@@ -101,7 +102,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${your_access_token}` 
+            'Authorization': `Bearer ${accessToken}`
           },
           body: JSON.stringify({
             folder_name: folderName,

@@ -42,7 +42,9 @@
                     // เก็บข้อมูลผู้ใช้ใน localStorage
                     localStorage.setItem('loggedInUser', JSON.stringify({
                         user_id: data.id,
-                        username: data.user.username
+                        username: data.user.username,
+                        accessToken: data.access,  // เก็บ access token
+                        refreshToken: data.refresh  // เก็บ refresh token
                     }));
 
                     // แสดงข้อความต้อนรับและเปลี่ยนหน้า

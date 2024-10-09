@@ -4,10 +4,12 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Diary
 from .serializers import DiarySerializer
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+from rest_framework.authtoken.models import Token
 
 
 
@@ -15,7 +17,6 @@ class DiaryListCreateView(generics.ListCreateAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
     permission_classes = [AllowAny]  # สามารถปรับให้เหมาะสมตามความต้องการ
-
     def vigenere_encrypt(self, text, key):
         encrypted_text = []
         key = key.lower()
@@ -101,7 +102,20 @@ class DiaryDetailView(generics.RetrieveUpdateDestroyAPIView):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
+class DiaryDeleteView(generics.DestroyAPIView):
+    queryset = Diary.objects.all()
+    serializer_class = DiarySerializer
+    permission_classes = [IsAuthenticated]  # Set permissions as needed
 
+    def destroy(self, request, *args, **kwargs):
+        # Get the diary instance to be deleted
+        instance = self.get_object()
+        
+        # Delete the diary entry
+        instance.delete()
+
+        # Return a response indicating successful deletion
+        return Response({"message": "Diary entry deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
 
 
