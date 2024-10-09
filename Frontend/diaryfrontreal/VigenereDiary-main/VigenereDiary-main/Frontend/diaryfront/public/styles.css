@@ -204,7 +204,10 @@ ul li button:hover {
         margin: 0 auto;
     }
 }
-
+.sidebar ul li:last-child {
+    margin-top: 600px; /* เพิ่มระยะห่างระหว่างปุ่ม Logout กับรายการเมนูอื่นๆ */
+  }
+  
 @media only screen and (min-width: 769px) {
     .sidebar {
         display: flex; /* แสดงแถบเมนูตลอดเวลาในคอมพิวเตอร์ */
@@ -235,7 +238,14 @@ ul li button:hover {
 }
 
 #folderName{
-    font-size:20px;
+    font-size:14px;
+    padding:10px;
+
+    
+}
+#saveFolderBtn{
+    padding:10px;
+    margin-left:10px;
 }
 .showdiary{
     background-color:white;
@@ -256,3 +266,10 @@ ul li button:hover {
     max-height:600px;
     height: 100%;
 }
+
+.inputfoldername{
+    margin-top:10px;
+    font-size:10px;
+    padding:10px;
+}
+
