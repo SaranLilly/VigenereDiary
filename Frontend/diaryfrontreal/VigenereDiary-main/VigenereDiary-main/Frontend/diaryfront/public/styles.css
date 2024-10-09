@@ -26,7 +26,7 @@ body {
     background-color: #f2f2f2; /*กรอบหน้าแรก กรอบใหญ่*/
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(206, 17, 17, 0.1);
 }
 
 /* Sidebar Menu */
@@ -72,7 +72,7 @@ body {
 .menu-icon i {
     font-size: 24px;
     cursor: pointer;
-    color: black; /* เปลี่ยนเป็นสีดำตามที่คุณต้องการ */
+    color: rgb(0, 0, 0); /* เปลี่ยนเป็นสีดำตามที่คุณต้องการ */
 }
 
 /* Back Button for Mobile */
@@ -94,8 +94,8 @@ body {
     max-width: 600px;
     margin: 50px auto; /* ลด margin ด้านบน */
     position: absolute;
-    top: 20px; /* เลื่อนขึ้นด้านบน */
-    right: 50px; /* ขยับไปทางขวา */
+    top: 80px; /* เลื่อนขึ้นด้านบน */
+    left: 500px; /* ขยับไปทางซ้าย */
 }
 
 .diary-box {
