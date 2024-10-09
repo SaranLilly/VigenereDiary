@@ -113,6 +113,8 @@ body {
     width: 100%;
     max-width: 500px; /* ปรับขนาดฟอร์มให้เล็กลง */
     margin: 0 auto;
+
+    
 }
 
 .diary-box, .view-diary-box {
@@ -217,6 +219,16 @@ ul li button:hover {
         display: none; /* ซ่อนปุ่ม hamburger ในคอมพิวเตอร์ */
     }
 }
+#new-diary-form, #view-entries-form {
+    resize: both; 
+    overflow: auto; 
+    min-width: 300px; 
+    min-height: 200px; 
+    max-width: 800px; 
+    max-height: 600px; 
+    
+}
+
 #userGreeting {
     color: white; 
     font-weight: none; 
