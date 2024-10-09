@@ -26,21 +26,15 @@
         </div>
 
         <!-- Sidebar Menu -->
-        <div>
-            <div>
-                <h1></h1>
-                <div id="entries-container"></div> 
-                <div class="sidebar" id="sidebar">
-                    <div id="userGreeting"></div> <!-- Placeholder for user greeting -->
-                    <ul>
-                        <li><a href="new-folder.html" onclick="showForm('new-folder')">New Folder</a></li>
-                        <li><a href="#" onclick="showForm('new-diary')">New Diary</a></li>
-                        <li><a href="alldiary.html" onclick="showForm('view-entries')">View All Entries</a></li>
-                        <li><a href="index.html">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="new-folder.html" onclick="showForm('new-folder')">New Folder</a></li>
+                <li><a href="#" onclick="showForm('new-diary')">New Diary</a></li>
+                <li><a href="alldiary.html" onclick="showForm('view-entries')">View All Entries</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
         </div>
+
         <div class="content">
             <!-- ฟอร์มบันทึกไดอารี่ (ซ่อนเป็นค่าเริ่มต้น) -->
             <div class="diary-box" id="new-diary-form" style="display: none;">
@@ -82,19 +76,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Display user greeting
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            if (loggedInUser) {
-                const user = JSON.parse(loggedInUser);
-                document.getElementById('userGreeting').innerText = `${user.username}`;
-            } else {
-                document.getElementById('userGreeting').innerText = 'Hello, Guest!';
-            }
-
-            // Fetch folders and diaries
-            displayFoldersAndDiaries();
-        });
+        
         // ฟังก์ชันแสดงฟอร์ม
         function showForm(formId) {
             // ซ่อนฟอร์มทั้งหมด
@@ -109,19 +91,8 @@
             }
         }
         // ฟังก์ชันสำหรับดึงข้อมูลโฟลเดอร์
-// ฟังก์ชันสำหรับดึงข้อมูลโฟลเดอร์
 function fetchFoldersForSelect() {
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    if (!loggedInUser) {
-        alert('You must be logged in to fetch folders.');
-        return;
-    }
-
-    const user = JSON.parse(loggedInUser);
-    const userId = user.user_id; // ดึง user_id
-    const url = `http://127.0.0.1:8000/vigenere-diary/folders/?user_id=${userId}`; // สร้าง URL พร้อม user_id
-
-    fetch(url)
+    fetch('http://127.0.0.1:8000/vigenere-diary/folders/')
         .then(response => response.json())
         .then(data => {
             const folderSelect = document.getElementById('folderName');
@@ -147,13 +118,12 @@ function fetchFoldersForSelect() {
         });
 }
 
-
 // เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
 document.addEventListener('DOMContentLoaded', function() {
     const loggedInUser = localStorage.getItem('loggedInUser');
     if (loggedInUser) {
         const user = JSON.parse(loggedInUser);
-        // document.getElementById('loggedInUserName').textContent = `${user.username}`;
+        document.getElementById('loggedInUserName').textContent = `${user.username}`;
     } else {
         document.getElementById('loggedInUserName').textContent = 'Not logged in';
     }

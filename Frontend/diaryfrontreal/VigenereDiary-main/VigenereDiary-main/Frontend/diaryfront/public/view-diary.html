@@ -39,6 +39,23 @@
     </div>
   
      
-    <script src="script.js"></script>
+    <script src="script.js">
+
+document.addEventListener('DOMContentLoaded', function() {
+            // Display user greeting
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                const user = JSON.parse(loggedInUser);
+                document.getElementById('userGreeting').innerText = `${user.username}!`;
+            } else {
+                document.getElementById('userGreeting').innerText = 'Hello, Guest!';
+            }
+
+            // Fetch folders and diaries
+            displayFoldersAndDiaries();
+        });
+
+    </script>
+    
 </body>
 </html>

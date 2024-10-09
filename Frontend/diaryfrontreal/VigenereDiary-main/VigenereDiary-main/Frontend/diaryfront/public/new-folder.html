@@ -4,13 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Folder</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
   <div class="folder-container">
     <h2>Create a New Folder</h2>
-    
+     <!-- Menu for Mobile -->
+        <div class="menu-icon">
+            <i class="fas fa-bars" onclick="toggleMenu()"></i>
+        </div>
+
+        <!-- Back Button for Mobile -->
+        <div class="back-icon">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <div>
+          <h1></h1>
+          <div id="entries-container"></div> 
+          <div class="sidebar" id="sidebar">
+              <div id="userGreeting"></div> <!-- Placeholder for user greeting -->
+              <ul>
+                  <li><a href="new-folder.html" onclick="showForm('new-folder')">New Folder</a></li>
+                  <li><a href="new-diary.html" onclick="showForm('new-diary')">New Diary</a></li>
+                  <li><a href="alldiary.html" onclick="showForm('view-entries')">View All Entries</a></li>
+                  <li><a href="index.html">Logout</a></li>
+              </ul>
+          </div>
+      </div>
     <!-- ปุ่มสำหรับเพิ่มโฟลเดอร์ -->
     <button id="addFolderBtn">+ Add Folder</button>
 
@@ -29,6 +54,19 @@
 
   <!-- โหลดไฟล์ JavaScript -->
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+            // Display user greeting
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                const user = JSON.parse(loggedInUser);
+                document.getElementById('userGreeting').innerText = `${user.username}`;
+            } else {
+                document.getElementById('userGreeting').innerText = 'Hello, Guest!';
+            }
+
+            // Fetch folders and diaries
+            displayFoldersAndDiaries();
+        });
     // แสดงฟอร์มเมื่อคลิกปุ่ม "Add Folder"
     document.getElementById('addFolderBtn').addEventListener('click', function() {
       document.getElementById('folderForm').style.display = 'block';
@@ -63,6 +101,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${your_access_token}` 
           },
           body: JSON.stringify({
             folder_name: folderName,

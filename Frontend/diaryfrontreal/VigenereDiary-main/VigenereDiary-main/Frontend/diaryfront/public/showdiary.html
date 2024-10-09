@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diary Entry Decryption</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,8 +31,29 @@
     <button onclick="fetchDiaryContent()">Submit</button>
 
     <div id="result"></div>
-
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="new-folder.html" onclick="showForm('new-folder')">New Folder</a></li>
+            <li><a href="new-diary.html" onclick="showForm('new-diary')">New Diary</a></li>
+            <li><a href="alldiary.html" onclick="showForm('view-entries')">View All Entries</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </div>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display user greeting
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                const user = JSON.parse(loggedInUser);
+                document.getElementById('userGreeting').innerText = `Hello, ${user.username}!`;
+            } else {
+                document.getElementById('userGreeting').innerText = 'Hello, Guest!';
+            }
+
+            // Fetch folders and diaries
+            displayFoldersAndDiaries();
+        });
         async function fetchHint() {
             const urlParams = new URLSearchParams(window.location.search); // รับ URL parameters
             const diaryId = urlParams.get('diary_id'); // ดึง diary_id จาก URL
