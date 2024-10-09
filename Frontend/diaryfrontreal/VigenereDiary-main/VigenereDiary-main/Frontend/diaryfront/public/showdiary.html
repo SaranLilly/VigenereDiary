@@ -23,16 +23,20 @@
     </style>
 </head>
 <body>
-    
-    <h1>Decrypt Diary Entry</h1>
+    <div class="showdiary">
+    <!-- <h1>Decrypt Diary Entry</h1> -->
     <div id="hint"></div> <!-- ที่จะแสดง Hint -->
     <label for="key">Enter Decryption Key:</label>
     <input type="text" id="key" placeholder="Enter key here" />
     <button onclick="fetchDiaryContent()">Submit</button>
 
     <div id="result"></div>
+
+    
+
     <!-- Sidebar Menu -->
     <div class="sidebar" id="sidebar">
+        <div id="userGreeting"></div> <!-- Placeholder for user greeting -->
         <ul>
             <li><a href="new-folder.html" onclick="showForm('new-folder')">New Folder</a></li>
             <li><a href="new-diary.html" onclick="showForm('new-diary')">New Diary</a></li>
@@ -46,7 +50,7 @@
             const loggedInUser = localStorage.getItem('loggedInUser');
             if (loggedInUser) {
                 const user = JSON.parse(loggedInUser);
-                document.getElementById('userGreeting').innerText = `Hello, ${user.username}!`;
+                document.getElementById('userGreeting').innerText = `${user.username}`;
             } else {
                 document.getElementById('userGreeting').innerText = 'Hello, Guest!';
             }
@@ -108,7 +112,7 @@
 
                 const data = await response.json();
                 document.getElementById('result').innerHTML = `
-                    <h2>Decrypted Content:</h2>
+                    <h4>Content:</h4>
                     <p>${data.content}</p>
                 `;
             } catch (error) {
@@ -117,5 +121,6 @@
         }
         document.addEventListener('DOMContentLoaded', fetchHint);
     </script>
+    </div>
 </body>
 </html>
