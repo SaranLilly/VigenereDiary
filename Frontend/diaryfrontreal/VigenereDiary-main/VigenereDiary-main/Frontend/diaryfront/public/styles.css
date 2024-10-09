@@ -239,7 +239,7 @@ ul li button:hover {
 
 .alldiary {
     background-color: white;
-    center: center;
+    /* center: center; */
     padding:30px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
