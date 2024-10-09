@@ -1,8 +1,8 @@
 /* General Settings */
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #E8DCD0;
+    color: #91683C;
     margin: 0;
     padding: 0;
     display: flex;
@@ -23,7 +23,7 @@ body {
 .login-box, .register-box {
     width: 100%;
     max-width: 400px; /* กำหนดความกว้างสูงสุด */
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; /*กรอบหน้าแรก กรอบใหญ่*/
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -31,7 +31,7 @@ body {
 
 /* Sidebar Menu */
 .sidebar {
-    background-color: #f2f2f2;
+    background-color: #9c7b58;
     position: fixed;
     top: 0;
     left: 0;
@@ -39,7 +39,7 @@ body {
     height: 100%;
     display: none;
     flex-direction: column;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px #f2f2f2(0, 0, 0, 0.1);
 }
 
 .sidebar ul {
@@ -52,7 +52,7 @@ body {
 }
 
 .sidebar ul li a {
-    color: #000;
+    color: #f2f2f2;
     text-decoration: none;
     font-weight: 700;
 }
@@ -140,7 +140,7 @@ input, textarea, select {
 }
 
 button {
-    background-color: #000000;
+    background-color: #C19E77;
     color: white;
     padding: 10px;
     border: none;
