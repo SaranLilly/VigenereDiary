@@ -24,7 +24,7 @@ function login() {
         return response.json();
     })
     .then(result => {
-        //alert(`Welcome, ${username}!`); // แสดงข้อความต้อนรับเมื่อเข้าสู่ระบบสำเร็จ
+        alert(`Welcome, ${username}!`); // แสดงข้อความต้อนรับเมื่อเข้าสู่ระบบสำเร็จ
         document.location.href = 'new-diary.html'; // ไปยังหน้า new-diary หลังจากเข้าสู่ระบบ
     })
     .catch(error => {
@@ -128,7 +128,7 @@ function saveDiary() {
         return response.json();
     })
     .then(result => {
-        //alert('บันทึกไดอารี่เรียบร้อยแล้ว!'); // แสดงข้อความเมื่อบันทึกสำเร็จ
+        alert('บันทึกไดอารี่เรียบร้อยแล้ว!'); // แสดงข้อความเมื่อบันทึกสำเร็จ
         document.location.href = 'view-diary.html'; // เปลี่ยนหน้าไปยัง view-diary.html
     })
     .catch(error => {
@@ -162,7 +162,7 @@ function viewDiary(index) {
 
     if (secretKey === diary.secretKey) {
         const decryptedContent = atob(diary.content);
-        //alert(`เนื้อหาไดอารี่: ${decryptedContent}`);
+        alert(`เนื้อหาไดอารี่: ${decryptedContent}`);
     } else {
         alert('กุญแจลับไม่ถูกต้อง!');
     }
