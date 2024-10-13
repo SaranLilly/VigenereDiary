@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // ดึงข้อมูลผู้ใช้ที่ล็อกอินจาก localStorage (เช่น user_id)
       const loggedInUser = localStorage.getItem('loggedInUser');
       if (!loggedInUser) {
-        alert('You must be logged in to create a folder.');
+        //alert('You must be logged in to create a folder.');
         return;
       }
 
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
           console.log('Success:', data);
-          alert(`Folder "${folderName}" has been created by user: ${user.username}`);
+          //alert(`Folder "${folderName}" has been created by user: ${user.username}`);
         })
         .catch((error) => {
           console.error('Error:', error);
